@@ -104,12 +104,7 @@ pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
   elCreations[i] = document.createElement('li');
   // elCreations[i].id = i;
 
-    if(!elCreations[elCreations.length-1]){
       elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArr[i]} cookies`;
-    }
-    // else if (elCreations[elCreations.length-1]){
-    // elCreations[elCreations.length-1].textContent = 'does this show';
-    // }
 
 
   //  console.log(elCreations[i]);
