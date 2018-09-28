@@ -24,14 +24,6 @@ var pike1 = {
     },
 
     //two versions?
-    figureCookiesPerHour : function(){
-        // for (var i = 0; i < this.hoursOpenInt)
-        for (var i = 0; i < this.hoursOpenInt; i ++){
-        var customersPH = (Math.floor(this.randomCustomersPerHour() * this.avgCookieSale));  
-        this.cookiesPerHourArr.push(customersPH);
-    }
-  },
-
     totalCookie: function(){
       let cookiePlusser = 0;  
       for (cookie in this.cookiesPerHourArr){
@@ -39,6 +31,17 @@ var pike1 = {
         }  
         return cookiePlusser;
       },  
+
+    figureCookiesPerHourAndTotal : function(){
+        // for (var i = 0; i < this.hoursOpenInt)
+        for (var i = 0; i < this.hoursOpenInt; i ++){
+        var customersPH = (Math.floor(this.randomCustomersPerHour() * this.avgCookieSale));  
+        this.cookiesPerHourArr.push(customersPH);
+      }
+    this.cookiesPerHourArr.push(this.totalCookie());  
+  },
+
+    
 
 
       hourFigurer: function(hoursOpenInt,startingHour){ 
@@ -72,7 +75,7 @@ var pike1 = {
     }
 
 // console.log(pike1.cookiesPerHourArr, 'cookies per hour before');
-pike1.figureCookiesPerHour();
+pike1.figureCookiesPerHourAndTotal();
 // console.log(pike1.cookiesPerHourArr, 'cookies per hour after');
 pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
 
@@ -89,17 +92,36 @@ pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
 
 // ---------modify this renderer to render stringy from pike1.hourfigurer
 
-var grabber = document.getElementById('grabMe');
-let elCreations = [];
-for(var i = 0; i < pike1.hoursOpenInt + 1; i ++){
- elCreations[i] = document.createElement('li');
- // elCreations[i].id = i;
- elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArr[i]} cookies`;
- var last = elCreations[elCreations.length -1];
- console.log(elCreations[i]);
+
+//ok, having trouble with this currently, how about trying a slightly different angle, instead of two step process here: elCreations[i] and last = elCreations[clCreations.lenght - 1], I do that last bit adding inside of either a 2nd, but related function, or just all in one function like figureCookiesPerHourAndTotal? The part that isn't working is the declaration of var last, for now i'll comment that whole chunk out. 
+
+//wrapped it in a function called rendererer...
+//what about an if statement or something that allows all [i]s to append to the screen with the string literals at elCreations[i].textContent to render to the screen, but then for the last index it has a different string version to reflect the fact that it's the total?
+// var renderer = function(){
+  var grabber = document.getElementById('grabMe');
+  let elCreations = [];
+  for(var i = 0; i < pike1.hoursOpenInt + 1 ; i ++){
+  elCreations[i] = document.createElement('li');
+  // elCreations[i].id = i;
+
+    if(!elCreations[elCreations.length-1]){
+      elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArr[i]} cookies`;
+    }
+    // else if (elCreations[elCreations.length-1]){
+    // elCreations[elCreations.length-1].textContent = 'does this show';
+    // }
+
+
+  //  console.log(elCreations[i]);
+  grabber.appendChild(elCreations[i]);
+  }
+// }; 
+
+
+//This was previously in the for loop, but Jackie noticed it shouldn't be there. Moved it out and it worked. Thanks Jackie. 
+// var last = elCreations[elCreations.length -1];
 // last.textContent = pike1.totalCookie();
-grabber.appendChild(elCreations[i]);
-}
+// grabber.appendChild(last);
 
 
 //  var lastForTotal = document.createElement('li');
