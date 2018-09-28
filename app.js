@@ -11,17 +11,11 @@ var pike1 = {
     // whatIsThis : this,
     //this is the window!
     min: 23,
-    // whatIsMin : pike1.min,
-    whatIsThisMin : this.min,
-    noSeriouslyINeedAFunctionJustToSeeThis : function(){
-    return this.min;  
-    },
-
-    max: 65,
+    max: 65,   
     avgCookieSale: 6.3,
     hoursOpenInt: 48,
     startingHour: 8,
-    cookiesPerHourArr: [],
+    cookiesPerHourArrAndTotal: [],
     stringHoursArr: [], 
 
     randomCustomersPerHour: function(){
@@ -33,8 +27,8 @@ var pike1 = {
     //two versions?
     totalCookie: function(){
       let cookiePlusser = 0;  
-      for (cookie in this.cookiesPerHourArr){
-        cookiePlusser += this.cookiesPerHourArr[cookie];
+      for (cookie in this.cookiesPerHourArrAndTotal){
+        cookiePlusser += this.cookiesPerHourArrAndTotal[cookie];
         }  
         return cookiePlusser;
       },  
@@ -43,16 +37,36 @@ var pike1 = {
         // for (var i = 0; i < this.hoursOpenInt)
         for (var i = 0; i < this.hoursOpenInt; i ++){
         var customersPH = (Math.floor(this.randomCustomersPerHour() * this.avgCookieSale));  
-        this.cookiesPerHourArr.push(customersPH);
+        this.cookiesPerHourArrAndTotal.push(customersPH);
       }
-    this.cookiesPerHourArr.push(this.totalCookie());  
+    this.cookiesPerHourArrAndTotal.push(this.totalCookie());  
   },
 
   myArr : [1,2,3,4,5,6,7,8,9,10],
-  // lastEl : pike1.myArr,
-  
-  myArrFun : function(){
+  outPutmyArrFunLast : [],
 
+  myArrFun : function(){
+    let last = this.myArr[this.myArr.length -1];
+    
+    for (i in this.myArr){
+    if (this.myArr[i] === last){
+      // okay, what is this? concept that i can target an array index, check it's value and then do something? I was thinking of this sort of thing to check for my grand total on my cookiessoldarray...
+
+
+    // console.log('does it get here?', 'it did');  
+
+    }  
+
+
+      //oh i thought at first looking at the console.log that it wasn't iterating all the way through, but i was wrong, it is, it's just returning i, not the value at index i, my mistake. that was just console.logging i, but console.log(this.myArr[i]); works as intended. 
+
+      
+      // if(i === last){
+      //   console.log('got there');
+      // }
+
+
+    }
 
 
   },
@@ -90,16 +104,18 @@ var pike1 = {
       },
     }
 
-// console.log(pike1.cookiesPerHourArr, 'cookies per hour before');
+    
+
+// console.log(pike1.cookiesPerHourArrAndTotal, 'cookies per hour before');
 pike1.figureCookiesPerHourAndTotal();
-// console.log(pike1.cookiesPerHourArr, 'cookies per hour after');
+// console.log(pike1.cookiesPerHourArrAndTotal, 'cookies per hour after');
 pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
 
 
 //this renderer works
 // var grabber = document.getElementById('grabMe');
 // let elCreations = [];
-// for(var i = 0; i < pike1.cookiesPerHourArr.length; i ++){
+// for(var i = 0; i < pike1.cookiesPerHourArrAndTotal.length; i ++){
 //  elCreations[i] = document.createElement('li');
 //  grabber.appendChild(elCreations[i]);
 // elCreations[i].id = i;
@@ -113,20 +129,26 @@ pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
 
 //wrapped it in a function called rendererer...
 //what about an if statement or something that allows all [i]s to append to the screen with the string literals at elCreations[i].textContent to render to the screen, but then for the last index it has a different string version to reflect the fact that it's the total?
-// var renderer = function(){
+let elCreations = [];
+var renderer = function(){
+  //ok, so why isn't anything show up here?
+
   var grabber = document.getElementById('grabMe');
-  let elCreations = [];
-  for(var i = 0; i < pike1.hoursOpenInt + 1 ; i ++){
-  elCreations[i] = document.createElement('li');
-  elCreations[i].id = i;
-  elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArr[i]} cookies`;
-
-
-  //  console.log(elCreations[i]);
-  grabber.appendChild(elCreations[i]);
+  for(var i = 0; i < pike1.cookiesPerHourArrAndTotal ; i ++){
+    elCreations[i] = document.createElement('li');
+    elCreations[i].id = i;
+    let total = pike1.cookiesPerHourArrAndTotal[pike1.cookiesPerHourArrAndTotal.length -1];
+    console.log(total);
+    
+    
+    elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArrAndTotal[i]} cookies`;
+    
+    
+    //  console.log(elCreations[i]);
+    grabber.appendChild(elCreations[i]);
   }
-// }; 
-
+  }; 
+  
 
 //This was previously in the for loop, but Jackie noticed it shouldn't be there. Moved it out and it worked. Thanks Jackie. 
 // var last = elCreations[elCreations.length -1];
