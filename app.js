@@ -104,12 +104,14 @@ var pike1 = {
       },
     }
 
-    
+ 
 
 // console.log(pike1.cookiesPerHourArrAndTotal, 'cookies per hour before');
 pike1.figureCookiesPerHourAndTotal();
 // console.log(pike1.cookiesPerHourArrAndTotal, 'cookies per hour after');
 pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
+
+
 
 
 //this renderer works
@@ -132,16 +134,24 @@ pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
 let elCreations = [];
 var renderer = function(){
   //ok, so why isn't anything show up here?
+  // I mistakenly didn't have .length at the end of pike1.cookiesPerHourArrAndTotal... so that's why. Now it works with .length at the end. 
 
   var grabber = document.getElementById('grabMe');
-  for(var i = 0; i < pike1.cookiesPerHourArrAndTotal ; i ++){
+  for(var i = 0; i < pike1.cookiesPerHourArrAndTotal.length ; i ++){
     elCreations[i] = document.createElement('li');
     elCreations[i].id = i;
     let total = pike1.cookiesPerHourArrAndTotal[pike1.cookiesPerHourArrAndTotal.length -1];
-    console.log(total);
+    // console.log(total, 'total works');
+    if(pike1.cookiesPerHourArrAndTotal[i] !== total){
+      elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArrAndTotal[i]} cookies`;
+      
+      // console.log(total, 'that works');
+    }
+    else if(pike1.cookiesPerHourArrAndTotal[i] === total){
+      elCreations[i].textContent = `and the grand total is ${total}`;
+      console.log(elCreations[i]);
+    }
     
-    
-    elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArrAndTotal[i]} cookies`;
     
     
     //  console.log(elCreations[i]);
