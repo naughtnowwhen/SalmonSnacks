@@ -8,8 +8,15 @@ arr.length = hourInteger;
 
 
 var pike1 = {
-    
+    // whatIsThis : this,
+    //this is the window!
     min: 23,
+    // whatIsMin : pike1.min,
+    whatIsThisMin : this.min,
+    noSeriouslyINeedAFunctionJustToSeeThis : function(){
+    return this.min;  
+    },
+
     max: 65,
     avgCookieSale: 6.3,
     hoursOpenInt: 48,
@@ -39,6 +46,15 @@ var pike1 = {
         this.cookiesPerHourArr.push(customersPH);
       }
     this.cookiesPerHourArr.push(this.totalCookie());  
+  },
+
+  myArr : [1,2,3,4,5,6,7,8,9,10],
+  // lastEl : pike1.myArr,
+  
+  myArrFun : function(){
+
+
+
   },
 
     
@@ -102,9 +118,8 @@ pike1.hourFigurer(pike1.hoursOpenInt, pike1.startingHour);
   let elCreations = [];
   for(var i = 0; i < pike1.hoursOpenInt + 1 ; i ++){
   elCreations[i] = document.createElement('li');
-  // elCreations[i].id = i;
-
-      elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArr[i]} cookies`;
+  elCreations[i].id = i;
+  elCreations[i].textContent = `remarkably, at ${pike1.stringHoursArr[i]} we sold ${pike1.cookiesPerHourArr[i]} cookies`;
 
 
   //  console.log(elCreations[i]);
