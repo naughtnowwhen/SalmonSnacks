@@ -11,6 +11,7 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
   this.startingHour = startingHour;
   this.cookiesPerHourArrAndTotal = [];
   this.stringHoursArr = [];
+
 }
 
   StoreConstructor.prototype.randomCustomersPerHour = function(){
@@ -66,7 +67,6 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
       currentHour++; 
       }  
     };
-  
 
 StoreConstructor.prototype.renderer = function(){
   let elCreations = [];
@@ -84,7 +84,13 @@ StoreConstructor.prototype.renderer = function(){
     }
     grabber.appendChild(elCreations[i]);
   }
-}
+};
+
+StoreConstructor.prototype.caller = function(){
+this.hourFigurer(this.hoursOpenInt, this.startingHour);
+this.figureCookiesPerHourAndTotal();
+this.renderer();
+};
 
 // //they all fire, 
 
@@ -104,24 +110,58 @@ var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
 var allStores = [pike1,seaTac,seaCenter,capHill,alki];
 
 allStores.forEach(function(store){
-store.figureCookiesPerHourAndTotal();
-store.renderer();
+store.caller();
 });
 
 
 // and creating another function that renders tables
 //eventually wrap the below in a function...
 
-var tableMaker = function(){
+var tableMaker = function(store){
 
 var tabling = document.createElement('TABLE');
 tabling.setAttribute('id','myTable');
 document.body.appendChild(tabling);
+
+
+//shows up
+// var getTabling = document.getElementById('myTable');
+// var makeHeader = document.createElement('th');
+//  makeHeader.textContent = 'what shows up?';
+// getTabling.appendChild(makeHeader);
+
+var getTabling = document.getElementById('myTable');
+var rowHeader = document.createElement('tr');
+getTabling.appendChild(rowHeader);
+
+var makeHeaders = [];
+
+for (var i in store.stringHoursArr){
+makeHeaders[i] = document.createElement('th');
+
+
+}
+
+// console.log(store.stringHoursArr);
+
+// array1.forEach(function(element) {
+//   console.log(element);
+// });
+
+// makeHeader.textContent = '';
+// rowHeader.appendChild(makeHeader);
+
+
+
+
+
+
+
   
-var header = tabling.createTHead(); 
-var headerRow = header.insertRow(0);
-var headerCell = headerRow.insertCell(0);
-headerCell.innerHTML = ('this is the header');
+// var header = tabling.createTHead(); 
+// var headerRow = header.insertRow(0);
+// var headerCell = headerRow.insertCell(0);
+// headerCell.innerHTML = ('this is the header');
 
  
 
@@ -157,14 +197,16 @@ rowing.appendChild(cells[i]);
 // cellData.appendChild(content);
 // document.getElementById('firstRowing').appendChild(cellData);
     
-  }
-  for (var i in allStores){
-  tableAppender(allStores[i]);
-  }
+  // }
+  // for (var i in allStores){
+  // tableAppender(allStores[i]);
+  // }
+  tableAppender(allStores[0]);
 
+  }
 }
 
-tableMaker();
+tableMaker(allStores[0]);
 
 
 
