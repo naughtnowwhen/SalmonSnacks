@@ -118,6 +118,7 @@ store.caller();
 //eventually wrap the below in a function...
 
 var tableMaker = function(store){
+console.log(store)  ;
 
 var tabling = document.createElement('TABLE');
 tabling.setAttribute('id','myTable');
@@ -171,8 +172,9 @@ console.log(storeContents, 'storeContents');
 let cells = [];
 let contents = [];
 
-for(var i in storeContents){
-
+// var i = 0; i < storeContents.length; i ++
+// for(var i in storeContents)
+for (var i = 0; i < storeContents.length; i ++){
 cells[i] = storeContents[i];
 cells[i] = document.createElement('TD');
 contents[i] = document.createTextNode(storeContents[i]);
@@ -192,10 +194,14 @@ rowing.appendChild(cells[i]);
   // }
   
   }
-  tableAppender(allStores[0]);
+
+  tableAppender(store);
 }
 
-tableMaker(allStores[0]);
+for (var store in allStores){
+tableMaker(allStores[store]);
+console.log(allStores[store]);
+}
 
 
 
