@@ -238,12 +238,28 @@ console.log(allStores[store]);
 
 }
 
+// buildEverything();
+
 
 var clear = function(){ 
 document.getElementById('myTable').innerHTML = '';
 };
 
+var handler = function(event){
+event.preventDefault();  
+event.stopPropagation();
+console.log('what happens?');
 
+
+}
+
+var buttonMkr = document.getElementById('mkrBtn').addEventListener("click", buildEverything);
+var buttonClr = document.getElementById('clrBtn').addEventListener("click", clear);
+var inputter = document.getElementById('inputter')
+//submit needs to be a function
+
+
+var submitter = document.getElementById('get').addEventListener('submit', handler);
 
 
 
