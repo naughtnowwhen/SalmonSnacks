@@ -1,5 +1,7 @@
 'use strict';
 
+var allStores = [];
+
 
 
 function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour) {
@@ -11,6 +13,8 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
   this.startingHour = startingHour;
   this.cookiesPerHourArrAndTotal = [];
   this.stringHoursArr = [];
+  //learned this one in code review in class. 
+  allStores.push(this);
 
 }
 
@@ -88,10 +92,18 @@ StoreConstructor.prototype.renderer = function(){
   // }
 };
 
+StoreConstructor.prototype.tester = function(){
+  alert(`name is ${this.name}`);
+  
+};
+
+// StoreConstructor.prototype.caller was originally here
 StoreConstructor.prototype.caller = function(){
-this.hourFigurer(this.hoursOpenInt, this.startingHour);
-this.figureCookiesPerHourAndTotal();
-this.renderer();
+// commenting out the calls for now except for tester.
+  // this.hourFigurer(this.hoursOpenInt, this.startingHour);
+// this.figureCookiesPerHourAndTotal();
+// this.renderer();
+
 };
 
 // //they all fire, 
@@ -104,12 +116,18 @@ this.renderer();
   // storeRenderer();
 
   //min,max,avgCookieSale,hoursOpenInt,startingHour
+//in code review we learned that the named variables for constructing new stores is unneccesary. 
+// the new StoreConstructor will be good enough. 
+
 var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
 var seaTac = new StoreConstructor('another one', 3,124,1.2,14,6);
 var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
 var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
 var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
-var allStores = [pike1,seaTac,seaCenter,capHill,alki];
+
+
+// pike1,seaTac,seaCenter,capHill,alki
+
 
 allStores.forEach(function(store){
 store.caller();
@@ -248,18 +266,38 @@ document.getElementById('myTable').innerHTML = '';
 var handler = function(event){
 event.preventDefault();  
 event.stopPropagation();
-console.log('what happens?');
+
 
 
 }
 
-var buttonMkr = document.getElementById('mkrBtn').addEventListener("click", buildEverything);
-var buttonClr = document.getElementById('clrBtn').addEventListener("click", clear);
-var inputter = document.getElementById('inputter')
+// var buttonMkr = document.getElementById('mkrBtn').addEventListener("click", buildEverything);
+// var buttonClr = document.getElementById('clrBtn').addEventListener("click", clear);
+// var inputter = document.getElementById('inputter')
 //submit needs to be a function
 
 
 var submitter = document.getElementById('get').addEventListener('submit', handler);
+
+
+
+
+//following along to examples from class except ignoring the body elements since for now
+var newStoreForm = document.getElementById('containerForm');
+
+var handleNewStore = function (event){
+event.preventDefault();
+event.stopPropagation();
+var storeName = event.target['store-name'].value;
+
+allStores.push(newStore);
+
+};
+
+newStoreForm.addEventListener('submit', handleNewStore);
+
+
+
 
 
 
