@@ -122,8 +122,6 @@ var tableMaker = function(store){
 var tabling = document.createElement('TABLE');
 tabling.setAttribute('id','myTable');
 document.body.appendChild(tabling);
-
-
 //shows up
 // var getTabling = document.getElementById('myTable');
 // var makeHeader = document.createElement('th');
@@ -133,64 +131,55 @@ document.body.appendChild(tabling);
 var getTabling = document.getElementById('myTable');
 var rowHeader = document.createElement('tr');
 getTabling.appendChild(rowHeader);
+// var placeholder = document.createTextNode('____');
+//  
 
 var makeHeaders = [];
+var cellArr = [];
 
-for (var i in store.stringHoursArr){
+
+for (var i in store.stringHoursArr){  
 makeHeaders[i] = document.createElement('th');
-
-
+cellArr[i] = document.createTextNode('cell');
+cellArr[i].textContent = store.stringHoursArr[i];
+makeHeaders[i].appendChild(cellArr[i]);
+rowHeader.appendChild(makeHeaders[i]);
 }
 
-// console.log(store.stringHoursArr);
-
-// array1.forEach(function(element) {
-//   console.log(element);
-// });
-
-// makeHeader.textContent = '';
-// rowHeader.appendChild(makeHeader);
-
-
-
-
-
-
-
-  
 // var header = tabling.createTHead(); 
 // var headerRow = header.insertRow(0);
 // var headerCell = headerRow.insertCell(0);
 // headerCell.innerHTML = ('this is the header');
-
- 
 
 var tableAppender = function(store){
   
 var rowing = [];
 var rowing = document.createElement('TR');
   rowing.setAttribute('id', store.name);
+
+  console.log(rowing.id, 'rowing.id');
   document.getElementById('myTable').appendChild(rowing);
 
 
 
 
 
-let storeContents = Object.values(store);
+// let storeContents = Object.values(store);
+let storeContents = store.cookiesPerHourArrAndTotal;
+console.log(storeContents, 'storeContents');
+
 let cells = [];
 let contents = [];
 
 for(var i in storeContents){
+
 cells[i] = storeContents[i];
 cells[i] = document.createElement('TD');
 contents[i] = document.createTextNode(storeContents[i]);
 cells[i].appendChild(contents[i]); 
-console.log(cells[i]);
 rowing.appendChild(cells[i]);
   //  console.log(storeContents[i]);
 }
-
-
 
 // var cellData = document.createElement('TD');
 // var content = document.createTextNode('cell');
@@ -201,9 +190,9 @@ rowing.appendChild(cells[i]);
   // for (var i in allStores){
   // tableAppender(allStores[i]);
   // }
-  tableAppender(allStores[0]);
-
+  
   }
+  tableAppender(allStores[0]);
 }
 
 tableMaker(allStores[0]);
