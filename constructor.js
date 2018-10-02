@@ -289,8 +289,8 @@ var handleNewStore = function (event){
 event.preventDefault();
 event.stopPropagation();
 var storeName = event.target['store-name'].value;
-
-allStores.push(newStore);
+var newStore = new StoreConstructor(storeName);
+// allStores.push(new Store);
 
 };
 
@@ -305,5 +305,3 @@ newStoreForm.addEventListener('submit', handleNewStore);
 // var row = tabling.insertRow(0);
 // var cell = row.insertCell(0);
 // cell.innerHTML = 'new cell';
-
-
