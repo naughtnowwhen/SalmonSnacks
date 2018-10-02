@@ -117,35 +117,47 @@ store.caller();
 // and creating another function that renders tables
 //eventually wrap the below in a function...
 
-var tableMaker = function(store){
-console.log(store)  ;
-
 var tabling = document.createElement('TABLE');
 tabling.setAttribute('id','myTable');
 document.body.appendChild(tabling);
+
+var makeHeaders = [];
+var cellArr = [];
+var getTabling = document.getElementById('myTable');
+var rowHeader = document.createElement('tr');
+getTabling.appendChild(rowHeader);
+
+var headerFunction = function(store){
+console.log(store);
+for (var i in store.stringHoursArr){  
+  makeHeaders[i] = document.createElement('th');
+  cellArr[i] = document.createTextNode('cell');
+  cellArr[i].textContent = store.stringHoursArr[i];
+  makeHeaders[i].appendChild(cellArr[i]);
+  rowHeader.appendChild(makeHeaders[i]);
+  }
+var totalEl = document.createElement('th');
+var totalContent = document.createTextNode('total');
+rowHeader.appendChild(totalContent);
+
+}
+headerFunction(allStores[0]);
+
+
+var tableMaker = function(store){
+console.log(store)  ;
+
+
 //shows up
 // var getTabling = document.getElementById('myTable');
 // var makeHeader = document.createElement('th');
 //  makeHeader.textContent = 'what shows up?';
 // getTabling.appendChild(makeHeader);
 
-var getTabling = document.getElementById('myTable');
-var rowHeader = document.createElement('tr');
-getTabling.appendChild(rowHeader);
+
 // var placeholder = document.createTextNode('____');
 //  
 
-var makeHeaders = [];
-var cellArr = [];
-
-
-for (var i in store.stringHoursArr){  
-makeHeaders[i] = document.createElement('th');
-cellArr[i] = document.createTextNode('cell');
-cellArr[i].textContent = store.stringHoursArr[i];
-makeHeaders[i].appendChild(cellArr[i]);
-rowHeader.appendChild(makeHeaders[i]);
-}
 
 // var header = tabling.createTHead(); 
 // var headerRow = header.insertRow(0);
