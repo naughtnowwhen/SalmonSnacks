@@ -129,6 +129,16 @@ getTabling.appendChild(rowHeader);
 
 var headerFunction = function(store){
 console.log(store);
+
+
+// so I want to place a placeholder here but obeviously this is the wrong way yo do it...
+// var placeholderEl = document.createElement('th');
+// var placeholderContent = document.createTextNode('what shows up?');
+// placeholderEl.appendChild(placeholderContent);
+// getTabling.appendChild(placeholderEl);
+// console.log(placeholderEl);
+
+
 for (var i in store.stringHoursArr){  
   makeHeaders[i] = document.createElement('th');
   cellArr[i] = document.createTextNode('cell');
