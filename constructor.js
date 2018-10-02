@@ -119,6 +119,8 @@ store.caller();
 // and creating another function that renders tables
 //eventually wrap the below in a function...
 
+var buildEverything = function(){
+
 var tabling = document.createElement('TABLE');
 tabling.setAttribute('id','myTable');
 document.body.appendChild(tabling);
@@ -202,6 +204,7 @@ nameOfStoreEl.appendChild(nameOfStoreContent);
 rowing.appendChild(nameOfStoreEl);
 }
 
+// at first I didn't have this else statement and it resulted in a working table except for the 0th index was returning undefined... the else statement fixed it. 
 else {
 cells[i] = storeContents[i];
 console.log(cells[i]);
@@ -232,6 +235,16 @@ for (var store in allStores){
 tableMaker(allStores[store]);
 console.log(allStores[store]);
 }
+
+}
+
+
+var clear = function(){ 
+document.getElementById('myTable').innerHTML = '';
+};
+
+
+
 
 
 
