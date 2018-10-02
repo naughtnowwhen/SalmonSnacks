@@ -4,6 +4,7 @@ var allStores = [];
 
 
 
+
 function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour) {
   this.name = name;
   this.min = min;
@@ -99,11 +100,9 @@ StoreConstructor.prototype.tester = function(){
 
 // StoreConstructor.prototype.caller was originally here
 StoreConstructor.prototype.caller = function(){
-// commenting out the calls for now except for tester.
-  // this.hourFigurer(this.hoursOpenInt, this.startingHour);
-// this.figureCookiesPerHourAndTotal();
-// this.renderer();
-
+this.hourFigurer(this.hoursOpenInt, this.startingHour);
+this.figureCookiesPerHourAndTotal();
+this.renderer();
 };
 
 // //they all fire, 
@@ -256,12 +255,16 @@ console.log(allStores[store]);
 
 }
 
-// buildEverything();
-
-
 var clear = function(){ 
-document.getElementById('myTable').innerHTML = '';
-};
+  document.getElementById('myTable').innerHTML = '';
+  };
+
+  
+  buildEverything();
+
+
+
+
 
 
 //following along to examples from class except ignoring the body elements since for now
@@ -280,6 +283,7 @@ var startingHour = event.target['starting-hour'].value;
 
 // name,min,max,avgCookieSale,hoursOpenInt,startingHour
 var newStore = new StoreConstructor(storeName,minCust,maxCust,avgCooky,hoursOpen,startingHour);
+
 
 // allStores.push(new Store);
 
