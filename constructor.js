@@ -71,19 +71,21 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
 StoreConstructor.prototype.renderer = function(){
   let elCreations = [];
   var grabber = document.getElementById('grabMe');
-  for(var i = 0; i < this.cookiesPerHourArrAndTotal.length ; i ++){
-    elCreations[i] = document.createElement('li');
-    elCreations[i].id = i;
-    let total = this.cookiesPerHourArrAndTotal[this.cookiesPerHourArrAndTotal.length -1];
+//commented out uls and lis
 
-    if(this.cookiesPerHourArrAndTotal[i] !== total){
-      elCreations[i].textContent = `remarkably, at ${this.stringHoursArr[i]} we sold ${this.cookiesPerHourArrAndTotal[i]} cookies`;
-    }
-    else if(this.cookiesPerHourArrAndTotal[i] === total){
-      elCreations[i].textContent = `and the grand total is ${total}`;
-    }
-    grabber.appendChild(elCreations[i]);
-  }
+  // for(var i = 0; i < this.cookiesPerHourArrAndTotal.length ; i ++){
+  //   elCreations[i] = document.createElement('li');
+  //   elCreations[i].id = i;
+  //   let total = this.cookiesPerHourArrAndTotal[this.cookiesPerHourArrAndTotal.length -1];
+
+  //   if(this.cookiesPerHourArrAndTotal[i] !== total){
+  //     elCreations[i].textContent = `remarkably, at ${this.stringHoursArr[i]} we sold ${this.cookiesPerHourArrAndTotal[i]} cookies`;
+  //   }
+  //   else if(this.cookiesPerHourArrAndTotal[i] === total){
+  //     elCreations[i].textContent = `and the grand total is ${total}`;
+  //   }
+  //   grabber.appendChild(elCreations[i]);
+  // }
 };
 
 StoreConstructor.prototype.caller = function(){
@@ -138,8 +140,8 @@ console.log(store);
 // getTabling.appendChild(placeholderEl);
 // console.log(placeholderEl);
 
-
-for (var i in store.stringHoursArr){  
+// headers
+for (var i = -1; i < store.stringHoursArr.length; i ++){  
   makeHeaders[i] = document.createElement('th');
   cellArr[i] = document.createTextNode('cell');
   cellArr[i].textContent = store.stringHoursArr[i];
@@ -151,13 +153,12 @@ var totalContent = document.createTextNode('total');
 rowHeader.appendChild(totalContent);
 
 }
+
+//hard coding a single store for now
 headerFunction(allStores[0]);
 
 
 var tableMaker = function(store){
-console.log(store)  ;
-
-
 //shows up
 // var getTabling = document.getElementById('myTable');
 // var makeHeader = document.createElement('th');
@@ -175,17 +176,12 @@ console.log(store)  ;
 // headerCell.innerHTML = ('this is the header');
 
 var tableAppender = function(store){
+  console.log(store.name);
   
 var rowing = [];
 var rowing = document.createElement('TR');
   rowing.setAttribute('id', store.name);
-
-  console.log(rowing.id, 'rowing.id');
   document.getElementById('myTable').appendChild(rowing);
-
-
-
-
 
 // let storeContents = Object.values(store);
 let storeContents = store.cookiesPerHourArrAndTotal;
@@ -196,13 +192,25 @@ let contents = [];
 
 // var i = 0; i < storeContents.length; i ++
 // for(var i in storeContents)
-for (var i = 0; i < storeContents.length; i ++){
+for (var i = -1; i < storeContents.length; i ++){
+  // console.log(storeContents[i], 'this one works as expected');
+if(i === -1){
+var nameOfStore = store.name;
+var nameOfStoreEl = document.createElement('td');
+var nameOfStoreContent = document.createTextNode(nameOfStore);
+nameOfStoreEl.appendChild(nameOfStoreContent);
+rowing.appendChild(nameOfStoreEl);
+}
+
+else {
 cells[i] = storeContents[i];
+console.log(cells[i]);
 cells[i] = document.createElement('TD');
 contents[i] = document.createTextNode(storeContents[i]);
 cells[i].appendChild(contents[i]); 
 rowing.appendChild(cells[i]);
   //  console.log(storeContents[i]);
+  }
 }
 
 // var cellData = document.createElement('TD');
