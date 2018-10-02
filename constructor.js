@@ -263,24 +263,6 @@ var clear = function(){
 document.getElementById('myTable').innerHTML = '';
 };
 
-var handler = function(event){
-event.preventDefault();  
-event.stopPropagation();
-
-
-
-}
-
-// var buttonMkr = document.getElementById('mkrBtn').addEventListener("click", buildEverything);
-// var buttonClr = document.getElementById('clrBtn').addEventListener("click", clear);
-// var inputter = document.getElementById('inputter')
-//submit needs to be a function
-
-
-var submitter = document.getElementById('get').addEventListener('submit', handler);
-
-
-
 
 //following along to examples from class except ignoring the body elements since for now
 var newStoreForm = document.getElementById('containerForm');
@@ -289,7 +271,16 @@ var handleNewStore = function (event){
 event.preventDefault();
 event.stopPropagation();
 var storeName = event.target['store-name'].value;
-var newStore = new StoreConstructor(storeName);
+var minCust = event.target['minimum-customers'].value;
+var maxCust = event.target['maximum-customers'].value;
+var avgCooky = event.target['average-cookies-sold-per-hour'].value;
+var hoursOpen = event.target['hours-open'].value;
+var startingHour = event.target['starting-hour'].value;
+
+
+// name,min,max,avgCookieSale,hoursOpenInt,startingHour
+var newStore = new StoreConstructor(storeName,minCust,maxCust,avgCooky,hoursOpen,startingHour);
+
 // allStores.push(new Store);
 
 };
