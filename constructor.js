@@ -5,6 +5,8 @@ var allStores = [];
 
 
 
+
+
 function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour) {
   this.name = name;
   this.min = min;
@@ -44,7 +46,6 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
 
   
     StoreConstructor.prototype.hourFigurer = function(hoursOpenInt,startingHour){ 
-    console.log('does hourFigurer fire?', 'yes it does');
     let am = 'am';
     let pm = 'pm';
     let currentHour = startingHour;
@@ -102,7 +103,9 @@ StoreConstructor.prototype.tester = function(){
 StoreConstructor.prototype.caller = function(){
 this.hourFigurer(this.hoursOpenInt, this.startingHour);
 this.figureCookiesPerHourAndTotal();
-this.renderer();
+
+//this.renderer() was for the uls and lis
+// this.renderer();
 };
 
 // //they all fire, 
@@ -119,7 +122,7 @@ this.renderer();
 // the new StoreConstructor will be good enough. 
 
 var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
-var seaTac = new StoreConstructor('another one', 3,124,1.2,14,6);
+var seaTac = new StoreConstructor('seaTac', 3,124,1.2,14,6);
 var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
 var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
 var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
@@ -136,7 +139,6 @@ store.caller();
 // and creating another function that renders tables
 //eventually wrap the below in a function...
 
-var buildEverything = function(){
 
 var tabling = document.createElement('TABLE');
 tabling.setAttribute('id','myTable');
@@ -149,7 +151,6 @@ var rowHeader = document.createElement('tr');
 getTabling.appendChild(rowHeader);
 
 var headerFunction = function(store){
-console.log(store);
 
 
 // so I want to place a placeholder here but obeviously this is the wrong way yo do it...
@@ -170,14 +171,12 @@ for (var i = -1; i < store.stringHoursArr.length; i ++){
 var totalEl = document.createElement('th');
 var totalContent = document.createTextNode('total');
 rowHeader.appendChild(totalContent);
-
 }
 
 //hard coding a single store for now
 headerFunction(allStores[0]);
 
 
-var tableMaker = function(store){
 //shows up
 // var getTabling = document.getElementById('myTable');
 // var makeHeader = document.createElement('th');
@@ -195,7 +194,6 @@ var tableMaker = function(store){
 // headerCell.innerHTML = ('this is the header');
 
 var tableAppender = function(store){
-  console.log(store.name);
   
 var rowing = [];
 var rowing = document.createElement('TR');
@@ -204,7 +202,6 @@ var rowing = document.createElement('TR');
 
 // let storeContents = Object.values(store);
 let storeContents = store.cookiesPerHourArrAndTotal;
-console.log(storeContents, 'storeContents');
 
 let cells = [];
 let contents = [];
@@ -224,7 +221,6 @@ rowing.appendChild(nameOfStoreEl);
 // at first I didn't have this else statement and it resulted in a working table except for the 0th index was returning undefined... the else statement fixed it. 
 else {
 cells[i] = storeContents[i];
-console.log(cells[i]);
 cells[i] = document.createElement('TD');
 contents[i] = document.createTextNode(storeContents[i]);
 cells[i].appendChild(contents[i]); 
@@ -245,27 +241,12 @@ rowing.appendChild(cells[i]);
   
   }
 
-  tableAppender(store);
+  // tableAppender(store);
+
+for (var i = 0; i < allStores.length; i ++){
+  // console.log(allstores[store]);
+tableAppender(allStores[i]);
 }
-
-for (var store in allStores){
-tableMaker(allStores[store]);
-console.log(allStores[store]);
-}
-
-}
-
-var clear = function(){ 
-  document.getElementById('myTable').innerHTML = '';
-  };
-
-  
-  buildEverything();
-
-
-
-
-
 
 //following along to examples from class except ignoring the body elements since for now
 var newStoreForm = document.getElementById('containerForm');
@@ -274,19 +255,24 @@ var handleNewStore = function (event){
 event.preventDefault();
 event.stopPropagation();
 var storeName = event.target['store-name'].value;
-var minCust = event.target['minimum-customers'].value;
-var maxCust = event.target['maximum-customers'].value;
-var avgCooky = event.target['average-cookies-sold-per-hour'].value;
-var hoursOpen = event.target['hours-open'].value;
-var startingHour = event.target['starting-hour'].value;
+var minCust = parseInt(event.target['minimum-customers'].value);
+var maxCust = parseInt( event.target['maximum-customers'].value);
+var avgCooky = parseFloat( event.target['average-cookies-sold-per-hour'].value);
+var hoursOpen = parseInt(event.target['hours-open'].value);
+var startingHour = parseInt(event.target['starting-hour'].value);
 
 
 // name,min,max,avgCookieSale,hoursOpenInt,startingHour
 var newStore = new StoreConstructor(storeName,minCust,maxCust,avgCooky,hoursOpen,startingHour);
 
+//trying to append new store 
+
+console.log(newStore);
+
+newStore.caller();
+tableAppender(newStore);
 
 // allStores.push(new Store);
-
 };
 
 newStoreForm.addEventListener('submit', handleNewStore);
