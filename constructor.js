@@ -2,12 +2,11 @@
 
 var allStores = [];
 
+var hours = 14;
 
 
 
-
-
-function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour) {
+function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour,) {
   this.name = name;
   this.min = min;
   this.max = max; 
@@ -16,10 +15,16 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
   this.startingHour = startingHour;
   this.cookiesPerHourArrAndTotal = [];
   this.stringHoursArr = [];
+
+  
+
+
   //learned this one in code review in class. 
   allStores.push(this);
 
 }
+
+
 
   StoreConstructor.prototype.randomCustomersPerHour = function(){
     let randoCust = Math.random();
@@ -93,17 +98,31 @@ StoreConstructor.prototype.renderer = function(){
   //   grabber.appendChild(elCreations[i]);
   // }
 };
+    // last time i tried a hard coded version of time, this time i'll try using this.time
 
-StoreConstructor.prototype.tester = function(){
-  alert(`name is ${this.name}`);
+    // console.log(allStores[store].cookiesPerHourArrAndTotal[hour]); 
+
+
+    StoreConstructor.prototype.totalCookiesAtHour = function() {
+      
+      for (var hour = 0; hour < this.hoursOpenInt; hour ++){
+        console.log(hour);
+         for (var store = 0; store < allStores.length; store ++){
+      // so the outer loop will stop at each while the inner loop will cycle through all the stores, next hour, all stores, etc...
+      console.log(allStores[store].cookiesPerHourArrAndTotal[hour]); 
   
-};
+        }
+      }
+    }
+
+  // the question is in the console.log this is more pseudo code since it doesn't work as real code, but how to think about making something like this work, where in the inner for loop store iterates through allStores while hour holds steady until all stores have looped and the outer for loop ++s by 1, then the cycle repeats. 
+
 
 // StoreConstructor.prototype.caller was originally here
-StoreConstructor.prototype.caller = function(){
+   StoreConstructor.prototype.caller = function(){
 this.hourFigurer(this.hoursOpenInt, this.startingHour);
 this.figureCookiesPerHourAndTotal();
-
+this.totalCookiesAtHour();
 //this.renderer() was for the uls and lis
 // this.renderer();
 };
@@ -175,6 +194,15 @@ rowHeader.appendChild(totalContent);
 
 //hard coding a single store for now
 headerFunction(allStores[0]);
+
+
+//footerfunction
+// var footerFunctionValues = function() {
+// for (var i = 0; i < allStores.length; i ++){
+
+// }
+
+// }
 
 
 //shows up
