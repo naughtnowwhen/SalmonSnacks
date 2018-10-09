@@ -2,6 +2,7 @@
 
 var allStores = [];
 
+
 var hours = 14;
 
 
@@ -15,13 +16,8 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
   this.startingHour = startingHour;
   this.cookiesPerHourArrAndTotal = [];
   this.stringHoursArr = [];
-
-  
-
-
   //learned this one in code review in class. 
   allStores.push(this);
-
 }
 
 
@@ -102,18 +98,27 @@ StoreConstructor.prototype.renderer = function(){
 
     // console.log(allStores[store].cookiesPerHourArrAndTotal[hour]); 
 
+    console.log(allStores[0]);
 
-    StoreConstructor.prototype.totalCookiesAtHour = function() {
-      
-      for (var hour = 0; hour < this.hoursOpenInt; hour ++){
-        console.log(hour);
-         for (var store = 0; store < allStores.length; store ++){
-      // so the outer loop will stop at each while the inner loop will cycle through all the stores, next hour, all stores, etc...
-      console.log(allStores[store].cookiesPerHourArrAndTotal[hour]); 
-  
-        }
-      }
-    }
+
+
+    //ok think this through in terms of scrambledAnimals, in fast and slow,
+    //at a glance it looks like slow grabs each store, and fast grabs all cookies per hour. so give it a try that way. 
+
+    // slow first
+
+    // ah! That's right, this won't work at this geography because the new stores haven't been built yet, they're built at line 148, so either think about placing the news up the page, or lower the constructor after the news, right? 
+    // ok, i'm going to ACP right now, because this seems very breakable (i mean it's already broke, so? If if it ain't fixed, unbreak it!)
+
+    
+
+
+    //herehere
+
+StoreConstructor.prototype.totalCookiesAtHour = function() {
+//something goes here
+
+};
 
   // the question is in the console.log this is more pseudo code since it doesn't work as real code, but how to think about making something like this work, where in the inner for loop store iterates through allStores while hour holds steady until all stores have looped and the outer for loop ++s by 1, then the cycle repeats. 
 
@@ -140,6 +145,10 @@ this.totalCookiesAtHour();
 //in code review we learned that the named variables for constructing new stores is unneccesary. 
 // the new StoreConstructor will be good enough. 
 
+//ok, so cl-ing here is undefined, but cl-ing right below all these new store constructors they show up, because allStores.push is in the constructor and that's why they don't appear until they're built with new.
+console.log(allStores[0]);
+
+//newnewnew
 var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
 var seaTac = new StoreConstructor('seaTac', 3,124,1.2,14,6);
 var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
