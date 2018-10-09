@@ -20,6 +20,12 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
   allStores.push(this);
 }
 
+var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
+var seaTac = new StoreConstructor('seaTac', 3,124,1.2,14,6);
+var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
+var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
+var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
+
 
 
   StoreConstructor.prototype.randomCustomersPerHour = function(){
@@ -116,6 +122,10 @@ StoreConstructor.prototype.renderer = function(){
     // ok, so I learned how to how to call the prototypes methods from dev tools... And realized that yes, the prototype isn't being called until after the news are newed down around line 150.
     // so the 2nd option was to place the news up the geograpghy of the page so that my prototypes are being called properly... Where to place it? 
 
+    //ok, i put the news (instantiations?) right below the StoreConstructor and the console log from way down the page still worked, so clearly prototypes are highly accessible. 
+
+    
+
     
 
 
@@ -152,15 +162,9 @@ this.totalCookiesAtHour();
 
 //ok, so cl-ing here is undefined, but cl-ing right below all these new store constructors they show up, because allStores.push is in the constructor and that's why they don't appear until they're built with new.
  
-// ACPACPACP
 
 
-//newnewnew
-var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
-var seaTac = new StoreConstructor('seaTac', 3,124,1.2,14,6);
-var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
-var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
-var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
+
 
 StoreConstructor.prototype.totalCookiesAtHour = function() {
   console.log(allStores.length);  
