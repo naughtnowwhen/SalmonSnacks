@@ -110,13 +110,18 @@ StoreConstructor.prototype.renderer = function(){
     // ah! That's right, this won't work at this geography because the new stores haven't been built yet, they're built at line 148, so either think about placing the news up the page, or lower the constructor after the news, right? 
     // ok, i'm going to ACP right now, because this seems very breakable (i mean it's already broke, so? If if it ain't fixed, unbreak it!)
 
+    //committed on masterBroke so safe to tinker, try both ways. 
+    //proto furst. // i'll comment it out, copy and past it and place it right under the news. and test with a cl. 
+
+    // ok, so I learned how to how to call the prototypes methods from dev tools... And realized that yes, the prototype isn't being called until after the news are newed down around line 150.
+    // so the 2nd option was to place the news up the geograpghy of the page so that my prototypes are being called properly... Where to place it? 
+
     
 
 
     //herehere
 
 StoreConstructor.prototype.totalCookiesAtHour = function() {
-//something goes here
 
 };
 
@@ -146,7 +151,9 @@ this.totalCookiesAtHour();
 // the new StoreConstructor will be good enough. 
 
 //ok, so cl-ing here is undefined, but cl-ing right below all these new store constructors they show up, because allStores.push is in the constructor and that's why they don't appear until they're built with new.
-console.log(allStores[0]);
+ 
+// ACPACPACP
+
 
 //newnewnew
 var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
@@ -155,6 +162,13 @@ var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
 var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
 var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
 
+StoreConstructor.prototype.totalCookiesAtHour = function() {
+  console.log(allStores.length);  
+};
+
+
+
+ 
 
 // pike1,seaTac,seaCenter,capHill,alki
 
