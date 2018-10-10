@@ -158,8 +158,10 @@ console.log(allStores);
 //herehere
 // ok cool, so this was way confusing before but now makes much more sense.
 
-var stepOneNext = `calculate the total hours at each hour and append it to the footer`;
-var stepTwoNext = `write some logic so that the footer always appears at the bottom.`
+var stepOneNext = `calculate the total hours at each hour and append it to the footer, i think this is where i should consider a prototype or possibly another constructor? like a footer constructor? no, a second constructor wouldn't be necessary, i could just add another input to the current constructor and push it there. but no, because those are stores and they already have their total hours figured...
+
+hmm, i'm thinking of parallel which is the slow loop was hard coded for allStores[0].hoursOpenInt for the sake of simplicity...`;
+var stepTwoNext = `write some logic so that the footer always appears at the bottom. something like on submit, erase table data and start scratch. `
 
 var totalCookiesAtHour = function() {
 for (let slow = 0; slow < allStores[0].hoursOpenInt; slow ++){
