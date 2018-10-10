@@ -6,6 +6,20 @@ var allStores = [];
 var hours = 14;
 
 
+// ok i learned a good lesson i think, I was moving around the new instantiations, and the prototype, and even when i moved the new instances before the constructor itself, and the prototype too, it didn't matter because no matter where i placed it the prototype worked, therefore i think that placing the new stores right up at the top is a fine idea. 
+
+// I was thinking that it would be a good idea to have have a special branch or master, probably in a more universal spot so that anytime I learn something I can push there so all my lessons are kept in one central spot so that I can refer back to them in a chronological order because right now they're all scattered.
+
+//set up a new repo called insights to do this.
+
+var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
+var seaTac = new StoreConstructor('seaTac', 3,124,1.2,14,6);
+var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
+var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
+var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
+
+
+
 
 function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour,) {
   this.name = name;
@@ -20,11 +34,11 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
   allStores.push(this);
 }
 
-var pike1 = new StoreConstructor('pike1',23,65,6.3,14,6);
-var seaTac = new StoreConstructor('seaTac', 3,124,1.2,14,6);
-var seaCenter = new StoreConstructor('seaCenter', 11,38, 3.7,14,6);
-var capHill = new StoreConstructor('capHill',20,38,2.3,14,6);
-var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
+
+
+
+
+     
 
 
 
@@ -38,6 +52,7 @@ var alki = new StoreConstructor('alki', 2,16,4.6,14,6);
     let cookiePlusser = 0;  
     for (var cookie in this.cookiesPerHourArrAndTotal){
       cookiePlusser += this.cookiesPerHourArrAndTotal[cookie];
+
       }  
       return cookiePlusser;
     }; 
@@ -104,8 +119,6 @@ StoreConstructor.prototype.renderer = function(){
 
     // console.log(allStores[store].cookiesPerHourArrAndTotal[hour]); 
 
-    console.log(allStores[0]);
-
 
 
     //ok think this through in terms of scrambledAnimals, in fast and slow,
@@ -124,28 +137,60 @@ StoreConstructor.prototype.renderer = function(){
 
     //ok, i put the news (instantiations?) right below the StoreConstructor and the console log from way down the page still worked, so clearly prototypes are highly accessible. 
 
-    
-
-    
+    // so really there's no reason to not just immediately instantiate the stores right below the store constructor, huh?
 
 
-    //herehere
 
-StoreConstructor.prototype.totalCookiesAtHour = function() {
+console.log(allStores);
 
+// made this into a prototype but realized it may be better suited as just a general function. and yes i think it's better as a function for now but maybe want to think how it would be as a prototype?
+
+//using this as a guide to iterate through different stores at same hour
+// pike1.cookiesPerHourArrAndTotal[0]
+// seaTac.cookiesPerHourArrAndTotal[0]
+// seaCenter.cookiesPerHourArrAndTotal[0]
+// capHill.cookiesPerHourArrAndTotal[0]
+// alki.cookiesPerHourArrAndTotal[0]
+
+
+
+
+//herehere
+// ok cool, so this was way confusing before but now makes much more sense.
+
+var stepOneNext = `calculate the total hours at each hour and append it to the footer`;
+var stepTwoNext = `write some logic so that the footer always appears at the bottom.`
+
+var totalCookiesAtHour = function() {
+for (let slow = 0; slow < allStores[0].hoursOpenInt; slow ++){
+  console.log(slow);
+  for(let fast = 0; fast < allStores.length; fast ++){
+console.log(fast, 'fast');
+      console.log(allStores[fast].cookiesPerHourArrAndTotal[slow]);
+    }
+  }
 };
+
+
+// i was confused at first because when i console logging i was getting far more console logs in devtools than expected, like 25, instead of 5, but then i realized in my caller function i was calling totalCookiesAtHour in a for loop for allStores.length, which explains the multiple of 5. 
 
   // the question is in the console.log this is more pseudo code since it doesn't work as real code, but how to think about making something like this work, where in the inner for loop store iterates through allStores while hour holds steady until all stores have looped and the outer for loop ++s by 1, then the cycle repeats. 
 
 
 // StoreConstructor.prototype.caller was originally here
-   StoreConstructor.prototype.caller = function(){
+StoreConstructor.prototype.caller = function(){
 this.hourFigurer(this.hoursOpenInt, this.startingHour);
 this.figureCookiesPerHourAndTotal();
-this.totalCookiesAtHour();
+// this.totalCookiesAtHour();
 //this.renderer() was for the uls and lis
 // this.renderer();
 };
+
+
+allStores.forEach(function(store){
+  store.caller();
+  });
+  
 
 // //they all fire, 
 
@@ -161,25 +206,9 @@ this.totalCookiesAtHour();
 // the new StoreConstructor will be good enough. 
 
 //ok, so cl-ing here is undefined, but cl-ing right below all these new store constructors they show up, because allStores.push is in the constructor and that's why they don't appear until they're built with new.
- 
-
-
-
-
-StoreConstructor.prototype.totalCookiesAtHour = function() {
-  console.log(allStores.length);  
-};
-
-
-
- 
 
 // pike1,seaTac,seaCenter,capHill,alki
 
-
-allStores.forEach(function(store){
-store.caller();
-});
 
 
 // and creating another function that renders tables
