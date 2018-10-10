@@ -96,6 +96,19 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
       }  
     };
 
+    StoreConstructor.prototype.caller = function(){
+      this.hourFigurer(this.hoursOpenInt, this.startingHour);
+      this.figureCookiesPerHourAndTotal();
+      // this.totalCookiesAtHour();
+      //this.renderer() was for the uls and lis
+      // this.renderer();
+      };
+      
+      
+      allStores.forEach(function(store){
+        store.caller();
+        });
+
 StoreConstructor.prototype.renderer = function(){
   let elCreations = [];
   var grabber = document.getElementById('grabMe');
@@ -155,23 +168,23 @@ console.log(allStores);
 
 
 
-//herehere
 // ok cool, so this was way confusing before but now makes much more sense.
 
 var stepOneNext = `calculate the total hours at each hour and append it to the footer, i think this is where i should consider a prototype or possibly another constructor? like a footer constructor? no, a second constructor wouldn't be necessary, i could just add another input to the current constructor and push it there. but no, because those are stores and they already have their total hours figured...
 
-hmm, i'm thinking of parallel which is the slow loop was hard coded for allStores[0].hoursOpenInt for the sake of simplicity...`;
-var stepTwoNext = `write some logic so that the footer always appears at the bottom. something like on submit, erase table data and start scratch. `
 
-var totalCookiesAtHour = function() {
-for (let slow = 0; slow < allStores[0].hoursOpenInt; slow ++){
-  console.log(slow);
-  for(let fast = 0; fast < allStores.length; fast ++){
-console.log(fast, 'fast');
-      console.log(allStores[fast].cookiesPerHourArrAndTotal[slow]);
-    }
-  }
-};
+hmm, i'm thinking of parallel which is the slow loop was hard coded for allStores[0].hoursOpenInt for the sake of simplicity...`;
+
+var stepTwoNext = `and get the total of the hourly totals.`;
+
+
+var stepThreeNext = `write some logic so that the footer always appears at the bottom. something like on submit, erase table data and start scratch. `
+
+
+//yes try it gets the total values at each hour. 
+var tryIt = [];
+//okay good but tryIt should be an object with so it can have both the hour totals and what hour they belong to, right? no because it matches the length allStores[0].hoursOpenInt.
+
 
 
 // i was confused at first because when i console logging i was getting far more console logs in devtools than expected, like 25, instead of 5, but then i realized in my caller function i was calling totalCookiesAtHour in a for loop for allStores.length, which explains the multiple of 5. 
@@ -192,6 +205,37 @@ this.figureCookiesPerHourAndTotal();
 allStores.forEach(function(store){
   store.caller();
   });
+
+
+
+
+var totalCookiesAtHour = function() {
+  let counter = 0;  
+  for (let slow = 0; slow < allStores[0].hoursOpenInt; slow ++){
+    if (counter){
+  //only will enter if counter is truthy, it begins falsy
+  tryIt.push(counter);
+  counter = 0;
+    }
+    for(let fast = 0; fast < allStores.length; fast ++){
+      //oh be careful, I was getting a bunch of undefineds this morning and last night it was working, but that's because last night i was calling this function from dev tools so the full program had time to run through, this a.m i wrote the call right below the declaration, but the caller prototype was further down the page so the values were undefined until it hit that caller line. put the caller up below the other prototypes and now it works. 
+        counter += allStores[fast].cookiesPerHourArrAndTotal[slow];
+        
+      }
+    }
+  };
+  
+  totalCookiesAtHour();
+  
+  var totalTotal = function(){
+  let plusser = 0;
+    for(let counter = 0; counter < tryIt.length; counter ++){
+      plusser += tryIt[counter];
+    }
+  };
+  
+  totalTotal();
+  
   
 
 // //they all fire, 
@@ -248,6 +292,7 @@ for (var i = -1; i < store.stringHoursArr.length; i ++){
 var totalEl = document.createElement('th');
 var totalContent = document.createTextNode('total');
 rowHeader.appendChild(totalContent);
+rowHeader.id = 'rowHeader';
 }
 
 //hard coding a single store for now
@@ -284,6 +329,7 @@ var tableAppender = function(store){
 var rowing = [];
 var rowing = document.createElement('TR');
   rowing.setAttribute('id', store.name);
+  
   document.getElementById('myTable').appendChild(rowing);
 
 // let storeContents = Object.values(store);
@@ -292,6 +338,8 @@ let storeContents = store.cookiesPerHourArrAndTotal;
 let cells = [];
 let contents = [];
 
+//therethere
+
 // var i = 0; i < storeContents.length; i ++
 // for(var i in storeContents)
 for (var i = -1; i < storeContents.length; i ++){
@@ -299,7 +347,7 @@ for (var i = -1; i < storeContents.length; i ++){
 if(i === -1){
 var nameOfStore = store.name;
 var nameOfStoreEl = document.createElement('td');
-var nameOfStoreContent = document.createTextNode(nameOfStore);
+ var nameOfStoreContent = document.createTextNode(nameOfStore);
 nameOfStoreEl.appendChild(nameOfStoreContent);
 rowing.appendChild(nameOfStoreEl);
 }
@@ -324,15 +372,38 @@ rowing.appendChild(cells[i]);
   // for (var i in allStores){
   // tableAppender(allStores[i]);
   // }
-  
+  console.log(rowing);
   }
 
-  // tableAppender(store);
+  for (var i = 0; i < allStores.length; i ++){
+    // console.log(allstores[store]);
+  tableAppender(allStores[i]);
+  }
 
-for (var i = 0; i < allStores.length; i ++){
-  // console.log(allstores[store]);
-tableAppender(allStores[i]);
-}
+//herehere
+
+  var footerTable = function(){
+  let displayBoard = document.getElementById('myTable');
+  let footerCreation = document.createElement('TR');
+  footerCreation.id = 'footer';
+  displayBoard.appendChild(footerCreation);
+  
+  let footerFillerFun = function(){
+  let footerFillerArr = [];  
+  //tryIt
+  for(let i = 0; i < tryIt.length; i ++){
+    footerFillerArr[i] = document.createElement('TD'); 
+    footerFillerArr[i].textContent = tryIt[i];
+    footerCreation.appendChild(footerFillerArr[i]);
+    
+  }  
+  console.log(footerCreation);
+};
+  footerFillerFun();
+};
+footerTable();
+
+
 
 //following along to examples from class except ignoring the body elements since for now
 var newStoreForm = document.getElementById('containerForm');
