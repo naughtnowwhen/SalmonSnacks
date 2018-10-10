@@ -1,6 +1,7 @@
 'use strict';
 
 var allStores = [];
+var tableGrabUniversal = document.getElementById('myTable');
 
 
 var hours = 14;
@@ -48,22 +49,25 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
     return multed;
     };
 //declared StoreConstructor.prototype.totalCookie first so that I can call it in figureCookiesPerHourAndTotal
-  StoreConstructor.prototype.totalCookie = function(){
-    let cookiePlusser = 0;  
-    for (var cookie in this.cookiesPerHourArrAndTotal){
-      cookiePlusser += this.cookiesPerHourArrAndTotal[cookie];
-
-      }  
-      return cookiePlusser;
-    }; 
+  
 
     StoreConstructor.prototype.figureCookiesPerHourAndTotal = function(){
       for (var i = 0; i < this.hoursOpenInt; i ++){
-      var customersPH = (Math.floor(this.randomCustomersPerHour() * this.avgCookieSale));  
+      var customersPH = (Math.floor(this.randomCustomersPerHour() * this.avgCookieSale));
       this.cookiesPerHourArrAndTotal.push(customersPH);
+      
+      
     }
   this.cookiesPerHourArrAndTotal.push(this.totalCookie());  
 };
+
+StoreConstructor.prototype.totalCookie = function(){
+  let cookiePlusser = 0;  
+  for (var cookie in this.cookiesPerHourArrAndTotal){
+    cookiePlusser += this.cookiesPerHourArrAndTotal[cookie];
+    }  
+    return cookiePlusser;
+  }; 
 
 
   
@@ -95,19 +99,20 @@ function StoreConstructor  (name,min,max,avgCookieSale,hoursOpenInt,startingHour
       currentHour++; 
       }  
     };
-
-    StoreConstructor.prototype.caller = function(){
-      this.hourFigurer(this.hoursOpenInt, this.startingHour);
-      this.figureCookiesPerHourAndTotal();
-      // this.totalCookiesAtHour();
-      //this.renderer() was for the uls and lis
-      // this.renderer();
-      };
+// mistake, this just below was active and causing duplicates and havoc. 
+    // StoreConstructor.prototype.caller = function(){
+    //   // this.hourFigurer(this.hoursOpenInt, this.startingHour);
+    //   this.figureCookiesPerHourAndTotal();
+    //   // this.totalCookiesAtHour();
+    //   //this.renderer() was for the uls and lis
+    //   // this.renderer();
+    //   }; 
       
       
-      allStores.forEach(function(store){
-        store.caller();
-        });
+    //   allStores.forEach(function(store){
+    //    allStores[0].hourFigurer();
+    //     store.caller();
+    //     });
 
 StoreConstructor.prototype.renderer = function(){
   let elCreations = [];
@@ -152,9 +157,6 @@ StoreConstructor.prototype.renderer = function(){
 
     // so really there's no reason to not just immediately instantiate the stores right below the store constructor, huh?
 
-
-
-console.log(allStores);
 
 // made this into a prototype but realized it may be better suited as just a general function. and yes i think it's better as a function for now but maybe want to think how it would be as a prototype?
 
@@ -271,8 +273,11 @@ var getTabling = document.getElementById('myTable');
 var rowHeader = document.createElement('tr');
 getTabling.appendChild(rowHeader);
 
-var headerFunction = function(store){
 
+
+
+
+var tableHeader = function(store){
 
 // so I want to place a placeholder here but obeviously this is the wrong way yo do it...
 // var placeholderEl = document.createElement('th');
@@ -288,15 +293,24 @@ for (var i = -1; i < store.stringHoursArr.length; i ++){
   cellArr[i].textContent = store.stringHoursArr[i];
   makeHeaders[i].appendChild(cellArr[i]);
   rowHeader.appendChild(makeHeaders[i]);
-  }
+}
+
+var tableGrab = document.getElementById('myTable');
 var totalEl = document.createElement('th');
 var totalContent = document.createTextNode('total');
 rowHeader.appendChild(totalContent);
 rowHeader.id = 'rowHeader';
+tableGrab.appendChild(rowHeader);
+
 }
 
 //hard coding a single store for now
-headerFunction(allStores[0]);
+
+
+var tableHeaderRender = function(){
+tableHeader(allStores[0]);  
+}
+tableHeaderRender();
 
 
 //footerfunction
@@ -324,11 +338,11 @@ headerFunction(allStores[0]);
 // var headerCell = headerRow.insertCell(0);
 // headerCell.innerHTML = ('this is the header');
 
-var tableAppender = function(store){
+var tableRower = function(store){
   
-var rowing = [];
+
 var rowing = document.createElement('TR');
-  rowing.setAttribute('id', store.name);
+  rowing.setAttribute('id', 'storeRow');
   
   document.getElementById('myTable').appendChild(rowing);
 
@@ -370,21 +384,49 @@ rowing.appendChild(cells[i]);
     
   // }
   // for (var i in allStores){
-  // tableAppender(allStores[i]);
+  // tableRower(allStores[i]);
   // }
-  console.log(rowing);
   }
 
   for (var i = 0; i < allStores.length; i ++){
     // console.log(allstores[store]);
-  tableAppender(allStores[i]);
+  tableRower(allStores[i]);
   }
 
 //herehere
 
-  var footerTable = function(){
+  var tableFooter = function(){
+
   let displayBoard = document.getElementById('myTable');
+  // displayBoard.textContent = '';
+  
+  // //this erases the table storeRows and leaves the header. 
+  // for(var i = 0; i < tableGrabUniversal.children.length; i ++){
+  //   // console.log(tableGrabUniversal.children[i]);
+  //   // console.log(tableGrabUniversal.children[i].id);
+  //   if(tableGrabUniversal.children[i].id === 'storeRow'){
+  //   console.log('instance');  
+  //   tableGrabUniversal.children[i].textContent ='';
+  //   }
+  // }
+  // for (var i = 0; i < allStores.length; i ++){
+  //   // console.log(allstores[store]);
+  // tableRower(allStores[i]);
+  // }
+
+  
+
+
+  // for (var i = 0; i < allStores.length; i ++){
+  // tableRower(allStores[i]);
+  // }
   let footerCreation = document.createElement('TR');
+  let footerNameCreation = document.createElement('TD');
+  footerNameCreation.textContent = ('total');
+  footerCreation.appendChild(footerNameCreation);
+  
+  // footerCreation.appendChild('totals');
+
   footerCreation.id = 'footer';
   displayBoard.appendChild(footerCreation);
   
@@ -397,11 +439,12 @@ rowing.appendChild(cells[i]);
     footerCreation.appendChild(footerFillerArr[i]);
     
   }  
-  console.log(footerCreation);
 };
   footerFillerFun();
 };
-footerTable();
+tableFooter();
+
+console.log(allStores.length);
 
 
 
@@ -424,11 +467,30 @@ var newStore = new StoreConstructor(storeName,minCust,maxCust,avgCooky,hoursOpen
 
 //trying to append new store 
 
-console.log(newStore);
-
 newStore.caller();
-tableAppender(newStore);
+tableRower(newStore);
+console.log(allStores.length);
 
+ //this erases the table storeRows and leaves the header. 
+  for(var i = 0; i < tableGrabUniversal.children.length; i ++){
+    // console.log(tableGrabUniversal.children[i]);
+    // console.log(tableGrabUniversal.children[i].id);
+    if(tableGrabUniversal.children[i].id === 'storeRow'){
+    console.log('instance');  
+    tableGrabUniversal.children[i].textContent ='';
+    }
+    else if(tableGrabUniversal.children[i].id === 'footer'){
+          console.log('found the footer');
+          tableGrabUniversal.children[i].textContent = '';  
+        }
+      }
+  
+  for (var i = 0; i < allStores.length; i ++){
+    // console.log(allstores[store]);
+  tableRower(allStores[i]);
+  }
+
+  tableFooter();
 // allStores.push(new Store);
 };
 
@@ -437,8 +499,14 @@ newStoreForm.addEventListener('submit', handleNewStore);
 
 
 
-
-
+// for (var i = 0; i < tableGrabUniversal.children.length; i ++){
+//     if(tableGrabUniversal.children[i].id === 'footer'){
+//     console.log('found the footer');
+//     tableGrabUniversal.children[i].textContent = '';
+    
+//     }
+//   }
+  
 
 // var row = tabling.insertRow(0);
 // var cell = row.insertCell(0);
