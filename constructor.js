@@ -212,6 +212,7 @@ allStores.forEach(function(store){
 
 
 var totalCookiesAtHour = function() {
+ 
   let counter = 0;  
   for (let slow = 0; slow < allStores[0].hoursOpenInt; slow ++){
     if (counter){
@@ -420,6 +421,8 @@ rowing.appendChild(cells[i]);
   // for (var i = 0; i < allStores.length; i ++){
   // tableRower(allStores[i]);
   // }
+
+  //herehere
   let footerCreation = document.createElement('TR');
   let footerNameCreation = document.createElement('TD');
   footerNameCreation.textContent = ('total');
