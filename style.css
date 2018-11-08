@@ -4,7 +4,7 @@ body{
 }
 
 h1 {
-text-align: center;    
+    text-align: center;    
 }
 
 
@@ -15,17 +15,15 @@ table, td {;
 }
 
 fieldset {
-    margin-top: 800px;
-margin: 0 auto;
-background-color: beige;
+    margin: 0 auto;
+    background-color: beige;
 }
 
 a{
-display: block;
-text-align: center;
-/* margin-top: 200px; */
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-font-size: 30px;
+    display: block;
+    text-align: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 30px;
 }
 
 #firstFew{
@@ -39,9 +37,9 @@ p{
 }
 
 #secondFew{
-margin-top: 50px;    
-display: inline-block;
-margin-left: 180px;
-border: 1px solid black;    
+    margin-top: 50px;    
+    display: inline-block;
+    margin-left: 180px;
+    border: 1px solid black;    
 }
 
