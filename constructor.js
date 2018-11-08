@@ -210,11 +210,11 @@ allStores.forEach(function(store){
 
 
 
-
 var totalCookiesAtHour = function() {
- 
+  console.log(allStores.length, 'allstores.length');
+
   let counter = 0;  
-  for (let slow = 0; slow < allStores[0].hoursOpenInt; slow ++){
+  for (let slow = 0; slow < allStores[0].hoursOpenInt +1; slow ++){
     if (counter){
   //only will enter if counter is truthy, it begins falsy
   tryIt.push(counter);
@@ -222,19 +222,22 @@ var totalCookiesAtHour = function() {
     }
     for(let fast = 0; fast < allStores.length; fast ++){
       //oh be careful, I was getting a bunch of undefineds this morning and last night it was working, but that's because last night i was calling this function from dev tools so the full program had time to run through, this a.m i wrote the call right below the declaration, but the caller prototype was further down the page so the values were undefined until it hit that caller line. put the caller up below the other prototypes and now it works. 
-        counter += allStores[fast].cookiesPerHourArrAndTotal[slow];
-        
+        counter += allStores[fast].cookiesPerHourArrAndTotal[slow];   
       }
     }
   };
   
   totalCookiesAtHour();
   
+  var totalTotalArr = [];
   var totalTotal = function(){
   let plusser = 0;
     for(let counter = 0; counter < tryIt.length; counter ++){
-      plusser += tryIt[counter];
+      plusser += tryIt[counter]; 
     }
+    totalTotalArr.push(plusser);
+
+
   };
   
   totalTotal();
@@ -444,6 +447,14 @@ rowing.appendChild(cells[i]);
   }  
 };
   footerFillerFun();
+
+var totalTotalAppender = function (){
+var totalTotalTD = document.createElement('TD');
+totalTotalTD.textContent = totalTotalArr;
+footerCreation.appendChild(totalTotalTD);
+};
+totalTotalAppender();
+
 };
 tableFooter();
 
@@ -455,6 +466,7 @@ console.log(allStores.length);
 var newStoreForm = document.getElementById('containerForm');
 
 var handleNewStore = function (event){
+
 event.preventDefault();
 event.stopPropagation();
 var storeName = event.target['store-name'].value;
@@ -467,6 +479,7 @@ var startingHour = parseInt(event.target['starting-hour'].value);
 
 // name,min,max,avgCookieSale,hoursOpenInt,startingHour
 var newStore = new StoreConstructor(storeName,minCust,maxCust,avgCooky,hoursOpen,startingHour);
+totalCookiesAtHour();
 
 //trying to append new store 
 
